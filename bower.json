@@ -1,0 +1,20 @@
+{
+  "name": "Proficiencia-JS",
+  "homepage": "https://github.com/luizalexandrew/Proficiencia-JS",
+  "authors": [
+    "luizalexandrew <luiz.alexandre@live.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "material-design-lite": "^1.2.1"
+  }
+}

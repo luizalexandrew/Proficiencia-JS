@@ -64,7 +64,6 @@ function Pessoa(id, nome, cpf, email, telefone, dataNascimento, senha){
         return this.senha;
     }
 
-
     this.validarNome = function(nome){
         let regex = /^[a-zA-Z ]+$/;
 

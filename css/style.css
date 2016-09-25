@@ -1,0 +1,27 @@
+.background-login{
+	background-color: #FFF;
+}
+
+.card-login{
+	margin: auto;
+  	align-items: center;
+  	justify-content: center;
+}
+
+.header{
+	background-color: #2196F3;
+}
+
+.login-form{
+	margin-top: 80px;
+	margin-bottom: 20px;
+}
+
+.mdl-checkbox{
+	left: 30px;
+}
+
+.mdl-textfield {
+	left: 15px;
+
+}

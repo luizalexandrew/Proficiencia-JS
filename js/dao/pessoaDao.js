@@ -14,13 +14,6 @@ function PessoaDAO(conexao){
         console.log(pessoa.getNome() + " - adicionado com sucesso");
     }
 
-    this.recuperarPorID = function(){
-
-        //String sql = "SELECT * FROM crudjsp.usuario " + "WHERE id=?";
-
-    }
-
-
     this.recuperarTodas = function(resolve, reject){
 
         this.connection.transaction(function (transacao) {
@@ -28,8 +21,6 @@ function PessoaDAO(conexao){
                 var resultados = [];
                 var len = results.rows.length, i;
                 for (i = 0; i < len; i++) {
-
-                    // console.log(results.rows.item(i));
                     
                     var pessoa ={
                         id: results.rows.item(i).id,
@@ -68,8 +59,32 @@ function PessoaDAO(conexao){
         });
 
         console.log(pessoa.getID() + " Removido");
+    }  
 
+    this.recuperarUsuarioEmailSenha = function(email, senha, success, fail){
+        
+
+        this.connection.transaction(function (transacao) {
+            var resultado = transacao.executeSql('SELECT * FROM pessoas WHERE email=? AND senha=?', [email, senha],function (tx, results) {
+              
+
+                try{
+                    var email = new Email(results.rows[0].email);
+                    var telefone = new Telefone(results.rows[0].telefone);
+                    var cpf = new CPF(results.rows[0].cpf);
+                    var pessoa = new Pessoa(results.rows[0].id, results.rows[0].nome, cpf, email, telefone, results.rows[0].dataNascimento, null);
+
+                    success(pessoa);
+                }catch(erro){
+                    fail("E-mail ou senha incorretas.");
+                }
+            });
+            
+        });
+        
     }
+
+    
 }
 
 // ---------------Criar novo usuario --------------
