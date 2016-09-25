@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8"> 
         <title>APP</title>
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
+
         <link rel="stylesheet" type="text/css" href="css/style.css">    
         <link rel="stylesheet" type="text/css" href="bower_components/material-design-lite/material.min.css">
         <script src="/bower_components/material-design-lite/material.min.js"></script>
@@ -17,7 +17,7 @@
                 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
                     <header class="mdl-layout__header">
                         <div class="mdl-layout__header-row header">
-                            <span class="mdl-layout-title">Login</span>
+                            <span class="mdl-layout-title">Registar</span>
                         </div>
                     </header> 
                 </div>
@@ -25,24 +25,54 @@
                 <form action="#" name="login" onsubmit="formularioLogin(email.value, pass.value)">
                     
                     <fieldset class="login-form">
+
+                        <div  class="mdl-textfield mdl-js-textfield" id="cot-nome">
+                            <input onkeyPress="validarEmailCardLogin(this.value)" class="mdl-textfield__input" type="text" id="email" />
+                            <label class="mdl-textfield__label" for="email">Nome</label>
+                        </div>
+
                         <div  class="mdl-textfield mdl-js-textfield" id="cot-email">
                             <input onkeyPress="validarEmailCardLogin(this.value)" class="mdl-textfield__input" type="text" id="email" />
                             <label class="mdl-textfield__label" for="email">E-mail</label>
                         </div>
+
                         <div onkeyPress="validarSenhaCardLogin(pass.value)" class="mdl-textfield mdl-js-textfield" id="cot-senha">
                             <input class="mdl-textfield__input" type="password" id="pass" />
                             <label class="mdl-textfield__label" for="pass">Senha</label>
                         </div>
+
+                        <div onkeyPress="validarSenhaCardLogin(pass.value)" class="mdl-textfield mdl-js-textfield" id="cot-resenha">
+                            <input class="mdl-textfield__input" type="password" id="pass" />
+                            <label class="mdl-textfield__label" for="pass">Digite novamente sua senha</label>
+                        </div>
+
+                        <div  class="mdl-textfield mdl-js-textfield" id="cot-cpf">
+                            <input onkeyPress="validarEmailCardLogin(this.value)" class="mdl-textfield__input" type="text" id="email" />
+                            <label class="mdl-textfield__label" for="email">CPF</label>
+                        </div>
+
+                        <div  class="mdl-textfield mdl-js-textfield" id="cot-telefone">
+                            <input onkeyPress="validarEmailCardLogin(this.value)" class="mdl-textfield__input" type="text" id="email" />
+                            <label class="mdl-textfield__label" for="email">Telefone</label>
+                        </div>
+
+                        <div  class="mdl-textfield mdl-js-textfield" id="cot-nascimento"> <label class="" for="email">Data Nascimento</label>
+                            <input onkeyPress="validarEmailCardLogin(this.value)" class="mdl-textfield__input" type="date" id="email" />
+                           
+                        </div>
+
                         <div class="msg-login-invalido" id="msg-login-invalido"></div>
                     </fieldset>
 
 
                     <div class="mdl-card__actions mdl-card--border text-align-center">
-                        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="btn-logar">Logar</button>
+                        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="btn-logar">Registar</button>
                     </div>
-                </form>
+
+                </form>          
+
             </main>
-            <p class="text-align-center">Não tem uma conta? <a href="/registar.html?#">Registre-se</a></p>
+            <p class="text-align-center">Já possuí uma conta? <a href="/?#">Entrar</a></p>
         </div>
 
         

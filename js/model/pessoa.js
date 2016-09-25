@@ -72,7 +72,7 @@ function Pessoa(id, nome, cpf, email, telefone, dataNascimento, senha){
         }else{
             return false;
         }   
-    }   
+    }
 }
 
 // var email = new Email("luiz.alexandre@live.com");

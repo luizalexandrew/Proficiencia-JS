@@ -9,13 +9,17 @@ function Login(){
         });
 
         promiseRecuperarTodasPessoas.then(function(fromSuccess){
+            //var nome = document.getElementById("msg-login-invalido").innerHTML = "";
 
             //TO DO: redirecionar posteriormente;
+
             console.log(fromSuccess);
 
         }).catch(function(fromFail){
-
+            var nome = document.getElementById("msg-login-invalido");
+            nome.innerHTML = fromFail;
             console.log(fromFail);
+            
         })
     }   
 }
