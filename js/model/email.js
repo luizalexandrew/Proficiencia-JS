@@ -22,5 +22,9 @@ function Email(email){
     
 }
 
-// var email = new Email("luiz.alexandre@live.com");
-// console.log(email.validar(email.getEmail()));
+// strEmail = "luiz.alexandre@live.com"
+// var email = new Email();
+// if(email.validar(strEmail))
+//     email.setEmail(strEmail);
+
+// console.log(email.getEmail());

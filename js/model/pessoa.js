@@ -1,11 +1,20 @@
-function Pessoa(nome, cpf, email, telefone, dataNascimento, senha){
+function Pessoa(id, nome, cpf, email, telefone, dataNascimento, senha){
     
+    this.id = id;
     this.nome = nome;
     this.cpf = cpf;
     this.email = email;
     this.telefone = telefone;
     this.dataNascimento = dataNascimento;
     this.senha = senha;
+
+    this.setID = function(id){
+        this.id = id;
+    }
+
+    this.getID = function(){
+        return this.id;
+    }
 
     this.setNome = function(nome){
         this.nome = nome;
@@ -72,6 +81,7 @@ function Pessoa(nome, cpf, email, telefone, dataNascimento, senha){
 // var cpf = new CPF("054.157.511-22");
 
 // var luiz = new Pessoa("Luiz Alexandre", cpf, email, telefone, "04/10/1993", "Windows");
+
 
 // console.log(luiz);
 // console.log(luiz.getNome());
