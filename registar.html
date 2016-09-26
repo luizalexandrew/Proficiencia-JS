@@ -22,7 +22,7 @@
                     </header> 
                 </div>
 
-                <form action="#" name="login" onsubmit="formularioLogin(email.value, pass.value)">
+                <form action="#" name="login" onsubmit="formularioRegistar(nome.value, email.value, pass.value, cpf.value, telefone.value, dataNascimento.value)">
                     
                     <fieldset class="login-form">
 
@@ -57,7 +57,7 @@
                         </div>
 
                         <div  class="mdl-textfield mdl-js-textfield" id="cot-nascimento"> <label class="dta-text" for="email">Data Nascimento</label>
-                            <input onchange="validarDataNascimentoCardRegister(this.value)" class="mdl-textfield__input" type="date" id="email" />
+                            <input onchange="validarDataNascimentoCardRegister(this.value)" class="mdl-textfield__input" type="date" id="dataNascimento" />
                            
                         </div>
 

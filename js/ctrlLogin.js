@@ -15,24 +15,52 @@ function validarEmailCardLogin(email){
 	campoEmail = document.querySelector("#cot-email");
 
 	if (objEmail.validar(email)){
-       	campoEmail.classList.remove("input-invalid");
-	} else{
-    	campoEmail.classList.add("input-invalid");
+       	marcarCampoValido(campoEmail);
+       	liberarLogin();
+    } else{
+    	marcarCampoInvalido(campoEmail);
+    	liberarLogin();
 	}
 
 }
 
 function validarSenhaCardLogin(senha){
 
-	campoEmail = document.querySelector("#cot-senha");
+	campoSenha = document.querySelector("#cot-senha");
 
 	if (ValidadorSenha(senha)){
-       	campoEmail.classList.remove("input-invalid");
+       	marcarCampoValido(campoSenha);
+       	liberarLogin();
     } else{
-    	campoEmail.classList.add("input-invalid");
+    	marcarCampoInvalido(campoSenha);
+    	liberarLogin();
 	}
 }
 
 function escreverMensagemErroLogin(mensagem){
 	document.getElementById("msg-login-invalido").innerHTML = mensagem;
+}
+
+function marcarCampoInvalido(campo){
+	campo.classList.add("input-invalid");
+	campo.setAttribute('data-valid', false);
+}
+
+function marcarCampoValido(campo){
+	campo.classList.remove("input-invalid");
+	campo.setAttribute('data-valid', true);
+}
+
+function liberarLogin(){
+
+	let campoEmail = document.getElementById("cot-email").getAttribute("data-valid")  === "true";
+	let campoSenha = document.getElementById("cot-senha").getAttribute("data-valid")  === "true";
+
+	console.log(campoEmail);
+
+	if(campoEmail && campoSenha ){
+		document.getElementById("btn-logar").disabled = false;
+	}else{
+		document.getElementById("btn-logar").disabled = true;
+	}
 }

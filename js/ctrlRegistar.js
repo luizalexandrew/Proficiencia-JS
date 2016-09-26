@@ -5,10 +5,11 @@ function validarNomeCardRegister(nome) {
 	campoNome = document.querySelector("#cot-nome");
 
 	if(ValidarNome(nome)){
-		marcarCampoInvalido(campoNome);
+		marcarCampoValido(campoNome);			
 		liberarRegistro();
 	}else{
-		marcarCampoValido(campoNome);
+		marcarCampoInvalido(campoNome);
+		liberarRegistro();
 	}
 }
 
@@ -19,10 +20,11 @@ function validarEmailCardRegister(email) {
 	campoEmail = document.querySelector("#cot-email");
 
 	if (objEmail.validar(email)){
-		marcarCampoInvalido(campoEmail);
+		marcarCampoValido(campoEmail);			
 		liberarRegistro();
 	}else{
-		marcarCampoValido(campoEmail);
+		marcarCampoInvalido(campoEmail);
+		liberarRegistro();
 	}
 }
 
@@ -31,10 +33,11 @@ function validarSenhaCardRegister(senha) {
 	campoSenha = document.querySelector("#cot-senha");
 
 	if(ValidadorSenha(senha)){
-		marcarCampoInvalido(campoSenha);
+		marcarCampoValido(campoSenha);			
 		liberarRegistro();
 	}else{
-		marcarCampoValido(campoSenha);
+		marcarCampoInvalido(campoSenha);
+		liberarRegistro();
 	}
 }
 
@@ -42,11 +45,12 @@ function validarReSenhaCardRegister(resenha) {
 	campoSenha = document.querySelector("#pass");
 	campoReSenha = document.querySelector("#cot-resenha");
 
-	if(ValidadorSenha(resenha) && resenha === campoSenha.value){
-		marcarCampoInvalido(campoReSenha);
+	if(ValidadorSenha(resenha) && resenha == campoSenha.value){
+		marcarCampoValido(campoReSenha);			
 		liberarRegistro();
 	}else{
-		marcarCampoValido(campoReSenha);
+		marcarCampoInvalido(campoReSenha);
+		liberarRegistro();
 	}
 }
 
@@ -57,10 +61,11 @@ function validarCPFCardRegister(cpf) {
 	var objCPF = new CPF(cpf);
 
 	if(objCPF.validar(cpf)){
-		marcarCampoInvalido(campoCPF);
+		marcarCampoValido(campoCPF);			
 		liberarRegistro();
 	}else{
-		marcarCampoValido(campoCPF);
+		marcarCampoInvalido(campoCPF);
+		liberarRegistro();
 	}
 }
 
@@ -72,10 +77,11 @@ function validarTelefoneCardRegister(telefone) {
 	var objTelefone = new Telefone();
 
 	if(objTelefone.validar(telefone)){
-		marcarCampoInvalido(campoTelefone);
+		marcarCampoValido(campoTelefone);			
 		liberarRegistro();
 	}else{
-		marcarCampoValido(campoTelefone);
+		marcarCampoInvalido(campoTelefone);
+		liberarRegistro();
 	}
 }
 
@@ -85,37 +91,49 @@ function validarDataNascimentoCardRegister(dataNascimento) {
 
 	campoDataNascimento = document.querySelector("#cot-nascimento");
 
-	if(regex.test(dataNascimento)){		
-		marcarCampoInvalido(campoDataNascimento);
+	if(regex.test(dataNascimento)){
+		marcarCampoValido(campoDataNascimento);			
 		liberarRegistro();
 	}else{
-		marcarCampoValido(campoDataNascimento);
+		marcarCampoInvalido(campoDataNascimento);
+		liberarRegistro();
 	}
 
 }
 
-
-function marcarCampoInvalido(campo){
+function marcarCampoValido(campo){
 	campo.classList.remove("input-invalid");
 	campo.setAttribute('data-valid', true);
 }
 
-function marcarCampoValido(campo){
-	campo.classList.add("input-invalid");
+function marcarCampoInvalido(campo){
+	campo.classList.add("input-invalid");	
 	campo.setAttribute('data-valid', false);
 }
 
 function liberarRegistro(){
 
-	let campoNome = document.getElementById("cot-nome").getAttribute("data-valid");
-	let campoEmail = document.getElementById("cot-email").getAttribute("data-valid");
-	let campoSenha = document.getElementById("cot-senha").getAttribute("data-valid");
-	let campoReSenha = document.getElementById("cot-resenha").getAttribute("data-valid");
-	let campoCPF = document.getElementById("cot-cpf").getAttribute("data-valid");
-	let campoTelefone = document.getElementById("cot-telefone").getAttribute("data-valid");
-	let campoDataNascimento = document.getElementById("cot-nascimento").getAttribute("data-valid");
+	let campoNome = document.getElementById("cot-nome").getAttribute("data-valid") === "true";
+	let campoEmail = document.getElementById("cot-email").getAttribute("data-valid") === "true";
+	let campoSenha = document.getElementById("cot-senha").getAttribute("data-valid") === "true";
+	let campoReSenha = document.getElementById("cot-resenha").getAttribute("data-valid") === "true";
+	let campoCPF = document.getElementById("cot-cpf").getAttribute("data-valid") === "true";
+	let campoTelefone = document.getElementById("cot-telefone").getAttribute("data-valid") === "true";
+	let campoDataNascimento = document.getElementById("cot-nascimento").getAttribute("data-valid") === "true";
 
-	if(campoNome && campoEmail && campoSenha && campoReSenha && campoCPF && campoTelefone && campoDataNascimento){
-		let btnRegistar = document.querySelector("#btn-logar").disabled = false;
+	if(campoNome && campoEmail && campoSenha && campoReSenha && campoCPF && campoTelefone && campoDataNascimento ){
+		document.querySelector("#btn-logar").disabled = false;
+	}else{
+		document.querySelector("#btn-logar").disabled = true;
 	}
+}
+
+function formularioRegistar(nome, email, senha, cpf, telefone, dataNascimento){
+	console.log(nome);
+	console.log(email);
+	console.log(senha);
+	console.log(cpf);
+	console.log(telefone);
+	console.log(dataNascimento);
+
 }
