@@ -12,7 +12,7 @@ function Telefone(telefone){
 
     this.validar = function(telefone) {
 
-		let regex = /^\([0-9]{2,3}\) ?[0-9]{4,5}-?[0-9]{4}$/;
+		let regex = /^\(?[0-9]{2,3}\)? ?[0-9]{4,5}-?[0-9]{4}$/;
 
 		if(regex.test(telefone)){
 			return true;

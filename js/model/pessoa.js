@@ -64,15 +64,6 @@ function Pessoa(id, nome, cpf, email, telefone, dataNascimento, senha){
         return this.senha;
     }
 
-    this.validarNome = function(nome){
-        let regex = /^[a-zA-Z ]+$/;
-
-        if(regex.test(nome)){
-            return true;
-        }else{
-            return false;
-        }   
-    }
 }
 
 // var email = new Email("luiz.alexandre@live.com");
