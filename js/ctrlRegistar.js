@@ -129,11 +129,33 @@ function liberarRegistro(){
 }
 
 function formularioRegistar(nome, email, senha, cpf, telefone, dataNascimento){
-	console.log(nome);
-	console.log(email);
-	console.log(senha);
-	console.log(cpf);
-	console.log(telefone);
-	console.log(dataNascimento);
+	
+	var objEmail = new Email(email);
+	var objTelefone = new Telefone(telefone);
+	var objCPF = new CPF(cpf);
+
+	var conexao = new ConnectionFactory();
+	var pessoaDAO = new PessoaDAO(conexao);
+
+
+	if(validarDadosNovoUsuario(nome, objEmail, senha, objCPF, objTelefone)){
+
+		var luiz = new Pessoa(null, nome, objCPF, objEmail, objTelefone, dataNascimento, btoa(senha));
+
+		pessoaDAO.adicionar(luiz);
+
+	}
+
+
+
+}
+
+function validarDadosNovoUsuario(nome, email, senha, cpf, telefone){
+
+	if(ValidarNome(nome) && email.validar(email.getEmail()) && ValidadorSenha(senha) && telefone.validar(telefone.getTelefone()) && cpf.validar(cpf.getCPF())){
+		return true;
+	}else{
+		return false;
+	}
 
 }

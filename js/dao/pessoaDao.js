@@ -10,7 +10,7 @@ function PessoaDAO(conexao){
             pessoa.getTelefone(), pessoa.getDataNascimento(),
             pessoa.getSenha()]);
         });
-
+        console.log("Usuario Adicionado");
     }
 
     this.recuperarTodas = function(resolve, reject){

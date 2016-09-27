@@ -2,7 +2,7 @@ function formularioLogin(email, senha) {
 
 	let login = new Login();
 
-	login.validar(email, senha);
+	login.validar(email, btoa(senha));
 
 }
 
@@ -52,8 +52,6 @@ function liberarLogin(){
 
 	let campoEmail = document.getElementById("cot-email").getAttribute("data-valid")  === "true";
 	let campoSenha = document.getElementById("cot-senha").getAttribute("data-valid")  === "true";
-
-	console.log(campoEmail);
 
 	if(campoEmail && campoSenha ){
 		document.getElementById("btn-logar").disabled = false;
