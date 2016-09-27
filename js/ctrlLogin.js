@@ -2,11 +2,8 @@ function formularioLogin(email, senha) {
 
 	let login = new Login();
 
-	if (email !== "" && senha !== "") {
-		login.validar(email, senha);
-	}else{
-		escreverMensagemErroLogin("Preencha os campos para fazer login.");
-	}
+	login.validar(email, senha);
+
 }
 
 function validarEmailCardLogin(email){
@@ -41,14 +38,14 @@ function escreverMensagemErroLogin(mensagem){
 	document.getElementById("msg-login-invalido").innerHTML = mensagem;
 }
 
-function marcarCampoInvalido(campo){
-	campo.classList.add("input-invalid");
-	campo.setAttribute('data-valid', false);
-}
-
 function marcarCampoValido(campo){
 	campo.classList.remove("input-invalid");
 	campo.setAttribute('data-valid', true);
+}
+
+function marcarCampoInvalido(campo){
+	campo.classList.add("input-invalid");
+	campo.setAttribute('data-valid', false);
 }
 
 function liberarLogin(){

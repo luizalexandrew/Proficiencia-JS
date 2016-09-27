@@ -11,7 +11,6 @@ function PessoaDAO(conexao){
             pessoa.getSenha()]);
         });
 
-        console.log(pessoa.getNome() + " - adicionado com sucesso");
     }
 
     this.recuperarTodas = function(resolve, reject){
