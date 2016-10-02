@@ -18,10 +18,12 @@ function Login(){
         }).catch(function(fromFail){
             var nome = document.getElementById("msg-login-invalido");
             nome.innerHTML = fromFail;
-            console.log(fromFail);
-            
         })
-    }   
+    }
+
+    this.criarCookie = function(fromSuccess){
+        
+    }
 }
 
 // --------------Login Sucess------------------------

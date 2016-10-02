@@ -60,8 +60,7 @@ function PessoaDAO(conexao){
         console.log(pessoa.getID() + " Removido");
     }  
 
-    this.recuperarUsuarioEmailSenha = function(email, senha, success, fail){
-        
+    this.recuperarUsuarioEmailSenha = function(email, senha, success, fail){        
 
         this.connection.transaction(function (transacao) {
             var resultado = transacao.executeSql('SELECT * FROM pessoas WHERE email=? AND senha=?', [email, senha],function (tx, results) {
@@ -83,7 +82,15 @@ function PessoaDAO(conexao){
         
     }
 
-    
+    this.setToten = function(id, token){
+        this.connection.transaction(function (transacao) {
+            transacao.executeSql('UPDATE pessoas SET ultimoToken=? WHERE id=?', 
+            [token, id]);
+        });
+        console.log("Token salvo");
+    }
+
+ 
 }
 
 // ---------------Criar novo usuario --------------
