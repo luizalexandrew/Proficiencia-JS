@@ -9,11 +9,24 @@ function Login(){
         });
 
         promiseRecuperarTodasPessoas.then(function(fromSuccess){
+
+            var authLogin = btoa(Math.random());
+            var now = new Date();
+            var time = now.getTime();
+            var expireTime = time + 1000*60;
+
+
+            document.cookie = "auth=" + authLogin + ";";    
+
+
+
+
             //var nome = document.getElementById("msg-login-invalido").innerHTML = "";
 
             //TO DO: redirecionar posteriormente;
 
-            console.log(fromSuccess);
+            console.log(JSON.stringify(fromSuccess));
+            console.log(authLogin);
 
         }).catch(function(fromFail){
             var nome = document.getElementById("msg-login-invalido");
@@ -21,9 +34,6 @@ function Login(){
         })
     }
 
-    this.criarCookie = function(fromSuccess){
-        
-    }
 }
 
 // --------------Login Sucess------------------------
