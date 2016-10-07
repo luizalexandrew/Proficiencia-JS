@@ -1,47 +1,74 @@
 function Login(){
 
     this.validar = function(email, senha){
-        var conexao = new ConnectionFactory();
-        var pessoaDAO = new PessoaDAO(conexao);
+        let conexao = new ConnectionFactory();
+        let pessoaDAO = new PessoaDAO(conexao);
 
-        var promiseRecuperarTodasPessoas = new Promise(function(success, fail){
+        let promiseValidarUsuario = new Promise(function(success, fail){
             pessoaDAO.recuperarUsuarioEmailSenha(email, senha, success, fail);
         });
 
-        promiseRecuperarTodasPessoas.then(function(fromSuccess){
+        promiseValidarUsuario.then(function(fromSuccess){
+            document.getElementById("msg-login-invalido").innerHTML = "";
 
-            var authLogin = btoa(Math.random());
-            var now = new Date();
-            var time = now.getTime();
-            var expireTime = time + 1000*60;
+            let authLogin = btoa(Math.random() + "|" + fromSuccess.dataNascimento);    
+            let conexao = new ConnectionFactory();
+            let saveToken = new PessoaDAO(conexao);
+            saveToken.setToten(fromSuccess.id, authLogin);
 
+            escreverCookie("auth", authLogin, 12);
 
-            document.cookie = "auth=" + authLogin + ";";    
-
-
-
-
-            //var nome = document.getElementById("msg-login-invalido").innerHTML = "";
-
-            //TO DO: redirecionar posteriormente;
-
-            console.log(JSON.stringify(fromSuccess));
-            console.log(authLogin);
+            let login =  new Login();
+            login.redirecionarUsuarioPorDataNascimento(fromSuccess.dataNascimento);
 
         }).catch(function(fromFail){
-            var nome = document.getElementById("msg-login-invalido");
+            let nome = document.getElementById("msg-login-invalido");
             nome.innerHTML = fromFail;
         })
     }
 
+    this.redirecionarUsuarioComCookie = function(){
+
+        let cookieAuth = lerCookie("auth");
+
+        if(cookieAuth){
+            let dataNascimento = this.getDataNascimentoDoCookie(cookieAuth);
+            this.redirecionarUsuarioPorDataNascimento(dataNascimento);
+        }
+    }
+
+    this.redirecionarUsuarioPorDataNascimento = function(dataNascimento){
+        
+        let data = new Date(dataNascimento);
+        console.log(data);
+        console.log(window.location.pathname);
+
+        if(this.calcularIdadeUsuario(dataNascimento) >= 18){
+            window.location = "../../administracao/tipo1.html";
+        }else if(this.calcularIdadeUsuario(dataNascimento) < 18){
+            window.location = "../../administracao/tipo2.html";
+        }else if (window.location.pathname != "/") {
+            window.location = "/";
+        }
+    }
+
+    this.getDataNascimentoDoCookie = function(cookieAuth){
+
+        if(cookieAuth){
+            let cookieSplit = atob(cookieAuth).split("|");
+            return cookieSplit[1];
+        }
+        return null;
+    }
+
+    this.calcularIdadeUsuario = function(dataNascimento){
+        let aniversario = new Date(dataNascimento);
+        return ~~((Date.now() - aniversario) / (31557600000));
+    }
+
 }
 
-// --------------Login Sucess------------------------
-
-// var login = new Login();
-// login.validar("luiz.alexandre@live.com", "Windows");
-
-// --------------Login Fail---------------------------
-
-// var login = new Login();
-// login.validar("luiz.alexandre@live.com", "Linux");
+(function(){
+    let login = new Login();
+    login.redirecionarUsuarioComCookie();
+})();

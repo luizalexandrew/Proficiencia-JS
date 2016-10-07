@@ -87,7 +87,27 @@ function PessoaDAO(conexao){
             transacao.executeSql('UPDATE pessoas SET ultimoToken=? WHERE id=?', 
             [token, id]);
         });
-        console.log("Token salvo");
+    }
+
+    this.getUserPerToten = function(token, success, fail){        
+
+        this.connection.transaction(function (transacao) {
+            var resultado = transacao.executeSql('SELECT * FROM pessoas WHERE ultimoToken=?', [token],function (tx, results) {  
+
+                try{
+                    var email = new Email(results.rows[0].email);
+                    var telefone = new Telefone(results.rows[0].telefone);
+                    var cpf = new CPF(results.rows[0].cpf);
+                    var pessoa = new Pessoa(results.rows[0].id, results.rows[0].nome, cpf, email, telefone, results.rows[0].dataNascimento, null);
+
+                    success(pessoa);
+                }catch(erro){
+                    fail("E-mail ou senha incorretas.");
+                }
+            });
+            
+        });
+        
     }
 
  

@@ -5,11 +5,12 @@ function escreverCookie(nome, valor, dias){
 	if(dias){
 		var data = new Date();
 		data.setTime(data.getTime() + (dias * 24 * 60 * 60 * 1000));
-		expiracao = ";expires " + data.toGMTString();
+		expiracao = ";expires =" + data.toGMTString();
 	}
 
 	if(valor != "" && valor != null && valor != "null"){
-		document.cookie = nome + "=" + valor + expiracao + "; path/";
+
+		document.cookie = nome + "=" + valor + expiracao + "; path = /";
 	}
 
 }
@@ -32,9 +33,11 @@ function lerCookie(nome){
 }
 
 function apagarCookie(nome){
+	console.log("cookie apagado: " + nome );
 	escreverCookie(nome, " ", -1);
 }
 
-// escreverCookie("autenticação", "birrrrrr", 4);
-// console.log(lerCookie("autenticação"));
-// apagarCookie("autenticação");
+
+// escreverCookie("auth", "vamos la", 4);
+// console.log(lerCookie("auth"));
+// apagarCookie("auth");
