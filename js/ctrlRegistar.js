@@ -144,9 +144,17 @@ function formularioRegistar(nome, email, senha, cpf, telefone, dataNascimento){
 
 		pessoaDAO.adicionar(luiz);
 
+		fazerLogin(luiz.getEmail(), btoa(senha));
+
 	}
+}
 
+function fazerLogin(email, senha){
 
+	console.log(email + " - " + senha);
+
+	let login = new Login();
+	login.validar(email, senha);	
 
 }
 

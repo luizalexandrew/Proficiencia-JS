@@ -27,14 +27,17 @@ function Login(){
         })
     }
 
-    this.redirecionarUsuarioComCookie = function(){
+    this.redirecionarUsuario = function(){
 
         let cookieAuth = lerCookie("auth");
 
         if(cookieAuth){
             let dataNascimento = this.getDataNascimentoDoCookie(cookieAuth);
             this.redirecionarUsuarioPorDataNascimento(dataNascimento);
+        }else if(window.location.pathname == "/"){
+            window.location = "/?#";
         }
+        
     }
 
     this.redirecionarUsuarioPorDataNascimento = function(dataNascimento){
@@ -70,5 +73,5 @@ function Login(){
 
 (function(){
     let login = new Login();
-    login.redirecionarUsuarioComCookie();
+    login.redirecionarUsuario();
 })();

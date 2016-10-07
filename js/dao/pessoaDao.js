@@ -3,7 +3,6 @@ function PessoaDAO(conexao){
     this.connection = conexao.getConnection();  
 
     this.adicionar = function(pessoa){
-
         this.connection.transaction(function (transacao) {
             transacao.executeSql('INSERT INTO pessoas (nome, cpf, email, telefone,dataNascimento, senha) VALUES (?, ?, ?, ?, ?, ?)', 
             [pessoa.getNome(), pessoa.getCPF(), pessoa.getEmail(), 

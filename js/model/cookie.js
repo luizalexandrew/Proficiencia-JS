@@ -33,7 +33,6 @@ function lerCookie(nome){
 }
 
 function apagarCookie(nome){
-	console.log("cookie apagado: " + nome );
 	escreverCookie(nome, " ", -1);
 }
 
