@@ -2,6 +2,14 @@
 	background-color: #FFF;
 }
 
+.mdl-layout__header{
+	background-color: #2196F3 !important;
+}
+
+.mdl-button-deslogar{
+	color: #FFF !important;
+}
+
 .card-login{
 	margin: auto;
   	align-items: center;
