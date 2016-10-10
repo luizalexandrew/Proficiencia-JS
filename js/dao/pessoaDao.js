@@ -4,10 +4,10 @@ function PessoaDAO(conexao){
 
     this.adicionar = function(pessoa){
         this.connection.transaction(function (transacao) {
-            transacao.executeSql('INSERT INTO pessoas (nome, cpf, email, telefone,dataNascimento, senha) VALUES (?, ?, ?, ?, ?, ?)', 
+            transacao.executeSql('INSERT INTO pessoas (nome, cpf, email, telefone,dataNascimento, senha, ultimoToken) VALUES (?, ?, ?, ?, ?, ?,?)', 
             [pessoa.getNome(), pessoa.getCPF(), pessoa.getEmail(), 
             pessoa.getTelefone(), pessoa.getDataNascimento(),
-            pessoa.getSenha()]);
+            pessoa.getSenha(), "sem Token"]);
         });
         console.log("Usuario Adicionado");
     }
@@ -88,24 +88,45 @@ function PessoaDAO(conexao){
         });
     }
 
-    this.getUserPerToten = function(token, success, fail){        
+    this.getUserPerToten = function(token, success, fail){
 
         this.connection.transaction(function (transacao) {
-            var resultado = transacao.executeSql('SELECT * FROM pessoas WHERE ultimoToken=?', [token],function (tx, results) {  
-
-                try{
-                    var email = new Email(results.rows[0].email);
-                    var telefone = new Telefone(results.rows[0].telefone);
-                    var cpf = new CPF(results.rows[0].cpf);
-                    var pessoa = new Pessoa(results.rows[0].id, results.rows[0].nome, cpf, email, telefone, results.rows[0].dataNascimento, null);
-
-                    success(pessoa);
-                }catch(erro){
-                    fail("E-mail ou senha incorretas.");
+            var resultado = transacao.executeSql('SELECT * FROM pessoas WHERE ultimoToken=?', [token.toString()],function (tx, results) {
+                var resultados = [];
+                var len = results.rows.length, i;
+                for (i = 0; i < len; i++) {
+                    
+                    var pessoa ={
+                        id: results.rows.item(i).id,
+                        nome: results.rows.item(i).nome,
+                        cpf: results.rows.item(i).cpf,
+                        email: results.rows.item(i).email,
+                        telefone: results.rows.item(i).telefone,
+                        dataNascimento: results.rows.item(i).dataNascimento
+                    };
+                    resultados.push(pessoa);
                 }
+                console.log(resultados);
             });
             
         });
+        
+        // this.connection.transaction(function (transacao) {
+        //     var resultado = transacao.executeSql('SELECT * FROM pessoas', [],function (tx, results) {  
+        //         console.log(results);
+        //         try{
+        //             var email = new Email(results.rows[0].email);
+        //             var telefone = new Telefone(results.rows[0].telefone);
+        //             var cpf = new CPF(results.rows[0].cpf);
+        //             var pessoa = new Pessoa(results.rows[0].id, results.rows[0].nome, cpf, email, telefone, results.rows[0].dataNascimento, null);
+
+        //             success(pessoa);
+        //         }catch(erro){
+        //             fail("Token Invalido");
+        //         }
+        //     });
+            
+        // });
         
     }
 

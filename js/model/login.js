@@ -16,26 +16,27 @@ function Login(){
             let saveToken = new PessoaDAO(conexao);
             saveToken.setToten(fromSuccess.id, authLogin);
 
-            escreverCookie("auth", authLogin, 12);
+            escreverCookie("auth", authLogin, 7);
 
-            let login =  new Login();
-            login.redirecionarUsuarioPorDataNascimento(fromSuccess.dataNascimento);
+           
+            setTimeout(function(){
+                let login =  new Login();
+                login.redirecionarUsuarioPorDataNascimento(fromSuccess.dataNascimento);
+            }, 100);
 
         }).catch(function(fromFail){
             let nome = document.getElementById("msg-login-invalido");
             nome.innerHTML = fromFail;
-        })
+        });
     }
 
-    this.redirecionarUsuario = function(){
+    this.isUsuarioLogado = function(){
 
         let cookieAuth = lerCookie("auth");
 
         if(cookieAuth){
             let dataNascimento = this.getDataNascimentoDoCookie(cookieAuth);
             this.redirecionarUsuarioPorDataNascimento(dataNascimento);
-        }else if(window.location.pathname == "/"){
-            window.location = "/?#";
         }
         
     }
@@ -47,9 +48,9 @@ function Login(){
         console.log(window.location.pathname);
 
         if(this.calcularIdadeUsuario(dataNascimento) >= 18){
-            window.location = "../../administracao/tipo1.html";
+            window.location = "../../administracao/maiorIdade.html";
         }else if(this.calcularIdadeUsuario(dataNascimento) < 18){
-            window.location = "../../administracao/tipo2.html";
+            window.location = "../../administracao/menorIdade.html";
         }else if (window.location.pathname != "/") {
             window.location = "/";
         }
@@ -73,5 +74,5 @@ function Login(){
 
 (function(){
     let login = new Login();
-    login.redirecionarUsuario();
+    login.isUsuarioLogado();
 })();

@@ -151,8 +151,6 @@ function formularioRegistar(nome, email, senha, cpf, telefone, dataNascimento){
 
 function fazerLogin(email, senha){
 
-	console.log(email + " - " + senha);
-
 	let login = new Login();
 	login.validar(email, senha);	
 
