@@ -1,4 +1,5 @@
-let body = document.querySelector("body");
+var body = document.querySelector("body");
+var usuarioRecuperado;
 
 body.addEventListener("load", recuperarUsuario());
 
@@ -50,10 +51,11 @@ function calcularIdadeUsuario(dataNascimento){
     return ~~((Date.now() - aniversario) / (31557600000));
 }
 
+
 function recuperarUsuarioPorToken(token){
 
 	let conexao = new ConnectionFactory();
-    let pessoaDAO = new PessoaDAO(conexao);
+  let pessoaDAO = new PessoaDAO(conexao);
 
 	let promiseValidarToken = new Promise(function(success, fail){
         pessoaDAO.getUserPerToten(token, success, fail);
@@ -61,7 +63,9 @@ function recuperarUsuarioPorToken(token){
 
     promiseValidarToken.then(function(fromSuccess){
 
+    	usuarioRecuperado = fromSuccess;
         MontarDadosUsuariosNaPagina(fromSuccess);
+        
 
     }).catch(function(fromFail){
 
@@ -99,12 +103,20 @@ function criarCardDadosUsuario(pessoa){
   	divMain.appendChild(criarParagrafoComNomeEValor("Telefone", pessoa.telefone.getTelefone()));
   	divMain.appendChild(criarParagrafoComNomeEValor("Data de nascimento", convertDate(pessoa.getDataNascimento())));
 
-  	let botaoEditar = criarBotao("bntCardEditar", "Editar", criarCardEditarDados);
+
+  	// let bntOpenModal = document.createElement("BUTTON");
+  	// bntOpenModal.setAttribute("id", "show-dialog");
+  	// bntOpenModal.setAttribute("type", "button");
+  	// bntOpenModal.setAttribute("class", "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect");
   	
-  	divMain.appendChild(botaoEditar);
+   //  let textBtn = document.createTextNode("Editar");
+   //  bntOpenModal.appendChild(textBtn);
 
 
+  	let botaoExcluirConta = criarBotao("bntCardExcluirConta", "Excluir Conta", excluirUsuario);
 
+  	// divMain.appendChild(bntOpenModal);
+  	divMain.appendChild(botaoExcluirConta);
 }
 
 function limparDadosUsuario(){
@@ -117,7 +129,8 @@ function limparDadosUsuario(){
 	}
 
 	//outra forma de remover um elemento
-	document.getElementById("bntCardEditar").remove();
+	// document.getElementById("btn-alterar").remove();
+    document.getElementById("bntCardExcluirConta").remove();
 
 }
 
@@ -148,36 +161,100 @@ function convertDate(dataDeEntrada) {
   return [tranformaDoisDigitos(data.getDate()+1), tranformaDoisDigitos(data.getMonth()+1), data.getFullYear()].join('/');
 }
 
-function criarCardEditarDados(){
-	
-	limparDadosUsuario();
 
-	var formulario = document.createElement("FORM");
 
-	formulario.setAttribute("id", "formEditarDadosUsuario");
-	formulario.setAttribute("onsubmit", "atualizarDadosUsuario()");
+function atualizarDadosUsuario(nome, telefone){
 
-	let btnSubmit = criarBtnSubmit("Enviar");
 
-	formulario.appendChild(btnSubmit);
+    let conexao = new ConnectionFactory();
+    let pessoaDAO = new PessoaDAO(conexao);
+    pessoaDAO.atualizarNomeETelefone(usuarioRecuperado.getID(), nome, telefone);
 
-	document.getElementById("dadosUsuario").appendChild(formulario);
-}
 
-function criarBtnSubmit(nome){
+    let btnCancelarEdicao = document.getElementById("btnCancelarEdicao");
+    btnCancelarEdicao.click();
 
-	var btnSubmit = document.createElement("INPUT");
-  	btnSubmit.setAttribute("value", nome);
-	btnSubmit.setAttribute("type", "submit");
-	btnSubmit.setAttribute("class", "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect");
-	return btnSubmit;
-
-}
-
-function atualizarDadosUsuario(){
-
+    usuarioRecuperado.setNome(nome);
+    usuarioRecuperado.telefone.setTelefone(telefone);
+    limparDadosUsuario();
+    criarCardDadosUsuario(usuarioRecuperado);
 
 
 
 
 }
+
+function excluirUsuario(){
+	let conexao = new ConnectionFactory();
+    let pessoaDAO = new PessoaDAO(conexao);
+
+    pessoaDAO.remover(usuarioRecuperado);
+    deslogar();
+}
+
+function validarTelefoneCardRegister(telefone) {
+
+  campoTelefone = document.querySelector("#cot-telefone");
+
+  let objTelefone = new Telefone();
+
+  if(objTelefone.validar(telefone)){
+    marcarCampoValido(campoTelefone);     
+    liberarRegistro();
+  }else{
+    marcarCampoInvalido(campoTelefone);
+    liberarRegistro();
+  }
+}
+
+function validarNomeCardAlterarDados(nome) {
+
+  campoNome = document.querySelector("#cot-nome");
+
+  if(ValidarNome(nome)){
+    marcarCampoValido(campoNome);     
+    liberarRegistro();
+  }else{
+    marcarCampoInvalido(campoNome);
+    liberarRegistro();
+  }
+}
+
+function marcarCampoValido(campo){
+  campo.classList.remove("input-invalid");
+  campo.setAttribute('data-valid', true);
+}
+
+function marcarCampoInvalido(campo){
+  campo.classList.add("input-invalid"); 
+  campo.setAttribute('data-valid', false);
+}
+
+function liberarRegistro(){
+
+  let campoNome = document.getElementById("cot-nome").getAttribute("data-valid") === "true";
+  let campoTelefone = document.getElementById("cot-telefone").getAttribute("data-valid") === "true";
+  
+  if(campoNome && campoTelefone){
+    document.querySelector("#btn-alterar").disabled = false;
+  }else{
+    document.querySelector("#btn-alterar").disabled = true;
+  }
+}
+
+
+(function(){
+	setTimeout(function(){ 
+        let dialog = document.querySelector('dialog');
+        let showDialogButton = document.querySelector('#show-dialog');
+        if (! dialog.showModal) {
+          dialogPolyfill.registerDialog(dialog);
+        }
+        showDialogButton.addEventListener('click', function() {
+          dialog.showModal();
+        });
+        dialog.querySelector('.close').addEventListener('click', function() {
+          dialog.close();
+        });
+    }, 500);
+})();

@@ -2,7 +2,7 @@
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8"> 
-        <title>APP</title>
+        <title>Menor de Idade</title>
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
         <link rel="stylesheet" type="text/css" href="../css/style.css">    
         <link rel="stylesheet" type="text/css" href="../bower_components/material-design-lite/material.min.css">
@@ -10,17 +10,54 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     </head>
     <body>
+
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
             <header class="mdl-layout__header">
                 <div class="mdl-layout__header-row">
                     <span class="mdl-layout-title">Menor Idade</span>
                     <div class="mdl-layout-spacer"></div>
+                    <button id="show-dialog" type="button" class="mdl-button mdl-js-button mdl-button-deslogar">Alterar</button>
                     <button id="btn-deslogar" class="mdl-button mdl-js-button mdl-button-deslogar">Deslogar</button>
                 </div>
-            </header>            
+            </header>
         </div>
 
-        <main id="dadosUsuario"></main>
+        <main id="dadosUsuario">
+            
+
+   
+        </main>
+
+        <dialog class="mdl-dialog">
+                <form action="#" name="login" onsubmit="atualizarDadosUsuario(nome.value, telefone.value);return false">
+
+                    <fieldset class="login-form">
+
+                        <div  class="mdl-textfield mdl-js-textfield" id="cot-nome">
+                            <input onchange="validarNomeCardAlterarDados(this.value)" class="mdl-textfield__input" type="text" id="nome" />
+                            <label class="mdl-textfield__label" for="nome">Nome</label>
+                        </div>
+
+                         <div class="mdl-textfield mdl-js-textfield" id="cot-telefone">
+                            <input onchange="validarTelefoneCardRegister(this.value)" class="mdl-textfield__input" type="text" id="telefone" />
+                            <label class="mdl-textfield__label" for="telefone">Telefone</label>
+                        </div>
+                 
+                        <div class="msg-login-invalido" id="msg-login-invalido"></div>
+                    </fieldset>
+
+                    <div class="mdl-dialog__actions">
+                        <button type="submit" id="btn-alterar" class="mdl-button" disabled>Alterar</button>
+                        <button type="button" id="btnCancelarEdicao" class="mdl-button close">Cancelar</button>
+                    </div>  
+                </form>     
+
+            
+        </dialog>
+
+
+
+
 
         <script type="text/javascript" src="../js/model/cookie.js"></script>
         <script type="text/javascript" src="../js/connection/connectionFactory.js"></script>
@@ -29,6 +66,7 @@
         <script type="text/javascript" src="../js/model/email.js"></script>
         <script type="text/javascript" src="../js/model/cpf.js"></script>
         <script type="text/javascript" src="../js/dao/pessoaDao.js"></script>
+        <script type="text/javascript" src="../js/model/validadorNome.js"></script>
         <script type="text/javascript" src="../js/ctrlAdministracao.js"></script>
     </body>
 </html>

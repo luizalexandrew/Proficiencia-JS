@@ -38,15 +38,21 @@ function PessoaDAO(conexao){
     }
 
 
-    this.atualizar = function(pessoa){
+    this.atualizarAll = function(pessoa){
 
         this.connection.transaction(function (transacao) {
             transacao.executeSql('UPDATE pessoas SET nome=?, cpf=?, email=?, telefone=?, dataNascimento=?, senha=? WHERE id=?', 
             [pessoa.getNome(), pessoa.getCPF(), pessoa.getEmail(), pessoa.getTelefone(), pessoa.getDataNascimento(), pessoa.getSenha(), pessoa.getID()]);
         });
 
-        console.log(pessoa.getID() + " Atualizado");
+    }
 
+    this.atualizarNomeETelefone = function(id, nome, telefone){
+
+        this.connection.transaction(function (transacao) {
+            transacao.executeSql('UPDATE pessoas SET nome=?, telefone=? WHERE id=?', 
+            [nome, telefone, id]);
+        });
     }
 
     this.remover = function(pessoa){

@@ -58,7 +58,7 @@ function validarCPFCardRegister(cpf) {
 
 	campoCPF = document.querySelector("#cot-cpf");
 
-	var objCPF = new CPF(cpf);
+	let objCPF = new CPF(cpf);
 
 	if(objCPF.validar(cpf)){
 		marcarCampoValido(campoCPF);			
@@ -74,7 +74,7 @@ function validarTelefoneCardRegister(telefone) {
 
 	campoTelefone = document.querySelector("#cot-telefone");
 
-	var objTelefone = new Telefone();
+	let objTelefone = new Telefone();
 
 	if(objTelefone.validar(telefone)){
 		marcarCampoValido(campoTelefone);			
@@ -87,7 +87,7 @@ function validarTelefoneCardRegister(telefone) {
 
 function validarDataNascimentoCardRegister(dataNascimento) {
 
-	var regex = /((19|20)\d\d)-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])/;
+	let regex = /((19|20)\d\d)-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])/;
 
 	campoDataNascimento = document.querySelector("#cot-nascimento");
 
@@ -130,17 +130,17 @@ function liberarRegistro(){
 
 function formularioRegistar(nome, email, senha, cpf, telefone, dataNascimento){
 	
-	var objEmail = new Email(email);
-	var objTelefone = new Telefone(telefone);
-	var objCPF = new CPF(cpf);
+	let objEmail = new Email(email);
+	let objTelefone = new Telefone(telefone);
+	let objCPF = new CPF(cpf);
 
-	var conexao = new ConnectionFactory();
-	var pessoaDAO = new PessoaDAO(conexao);
+	let conexao = new ConnectionFactory();
+	let pessoaDAO = new PessoaDAO(conexao);
 
 
 	if(validarDadosNovoUsuario(nome, objEmail, senha, objCPF, objTelefone)){
 
-		var luiz = new Pessoa(null, nome, objCPF, objEmail, objTelefone, dataNascimento, btoa(senha));
+		let luiz = new Pessoa(null, nome, objCPF, objEmail, objTelefone, dataNascimento, btoa(senha));
 
 		pessoaDAO.adicionar(luiz);
 
