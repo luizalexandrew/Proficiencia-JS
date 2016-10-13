@@ -103,6 +103,7 @@ function PessoaDAO(conexao){
                     pessoa.setCPF(cpf);
                     pessoa.setEmail(email);
                     pessoa.setTelefone(telefone);
+                    pessoa.setDataNascimento(results.rows.item(0).dataNascimento);
                     success(pessoa);
                 }catch(erro){
                     fail("Token Invalido");

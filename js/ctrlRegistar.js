@@ -165,3 +165,4 @@ function validarDadosNovoUsuario(nome, email, senha, cpf, telefone){
 	}
 
 }
+
